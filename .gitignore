@@ -15,3 +15,11 @@ gradle-app.setting
 
 # Ignore Gradle build output directory
 build
+bin
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
