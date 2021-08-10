@@ -7,7 +7,7 @@ import java.nio.ByteOrder;
 public class Header {
 
     /** 文字コード */
-    private static final String CHARSET_5TQ = "Shift-JIS";
+    private static final String CHARSET_5TQ = "Windows-31J";
 
     /** ジャンル */
     private String genre = null;

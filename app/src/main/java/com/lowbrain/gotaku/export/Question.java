@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Question {
     /** 文字コード */
-    private static final String CHARSET_5TQ = "Shift-JIS";
+    private static final String CHARSET_5TQ = "Windows-31J";
 
     /** ジャンル */
     private String genre = null;
@@ -23,13 +23,20 @@ public class Question {
     public static Question genQuestion(byte[] block, String genre) {
         // BLOCKをエンコード（0x80 で xor）
         byte[] decodeBlock = new byte[block.length];
-        for (int i = 0; i < block.length; i = i + 2) {
-            if (!(block[i] == 0x20 && block[i + 1] == 0x20)) {
-                decodeBlock[i] = (byte) (block[i] ^ 0x80);
-                decodeBlock[i + 1] = (byte) (block[i + 1] ^ 0x80);
+        int cache = 0; 
+        for (int i = 0; i < block.length; i++) {
+            if ((0x81 <= cache && cache <= 0x9f) || (0xe0 <= cache && cache <= 0xfc)) {
+                // 前のバイトが2バイト文字の第1バイトと一致する場合は無条件にエンコード
+                decodeBlock[i] = (byte)(block[i] ^ 0x80);
+                cache = 0;
+            } else if (block[i] != 0x20) {
+                // 0x20(スペース)ではない場合も無条件にエンコード
+                decodeBlock[i] = (byte)(block[i] ^ 0x80);
+                cache = block[i] ^ 0x80;
             } else {
-                decodeBlock[i] = block[i];
-                decodeBlock[i + 1] = block[i + 1];
+                // 0x20(スペース)の場合のみエンコードしない
+                decodeBlock[i] = 0x20;
+                cache =0;
             }
         }
 
