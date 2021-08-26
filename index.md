@@ -1,4 +1,9 @@
-## Welcome to GitHub Pages
+## ようこそです。
+
+サンプルページをそのままに，適当に文字を入れてみるテスト。
+それそーれそれ。
+
+## Welcome to うぇるかーむ
 
 You can use the [editor on GitHub](https://github.com/atnoc/5tqexport/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
